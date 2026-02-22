@@ -22,6 +22,11 @@
 - ✅ **直观操作**：长按菜单、上下文菜单等现代 iOS 交互
 - ✅ **空状态引导**：友好的提示和引导，提升用户体验
 - ✅ **实时预览**：处理过程中的动画效果
+- ✅ **设置界面**：应用设置管理
+
+### 设置功能
+- ✅ **应用配置**：管理应用级别的设置
+- ✅ **用户偏好**：保存用户的操作偏好
 
 ## 🚀 快速开始
 
@@ -64,8 +69,10 @@ NegMobile/
 ├── App/
 │   └── NegMobileApp.swift         # 应用入口
 ├── Core/
-│   └── Permissions/
-│       └── PhotoPermissionService.swift  # 照片权限服务
+│   ├── Permissions/
+│   │   └── PhotoPermissionService.swift  # 照片权限服务
+│   └── Settings/
+│       └── AppSettings.swift             # 应用设置
 ├── Data/
 │   ├── Repository/
 │   │   └── LocalAlbumRepository.swift    # 本地相册仓库
@@ -73,31 +80,48 @@ NegMobile/
 │       └── LocalImageStorage.swift       # 本地图片存储
 ├── Domain/
 │   ├── Entities/
+│   │   ├── Album.swift                   # 相册实体
+│   │   ├── NegativeImage.swift           # 负片图像实体
+│   │   └── Photo.swift                   # 照片实体
 │   ├── Protocols/
+│   │   ├── AlbumRepository.swift         # 相册仓库协议
+│   │   ├── ImageStorage.swift            # 图片存储协议
 │   │   └── NegativeEngine.swift          # 引擎协议
 │   └── UseCases/
+│       ├── LoadAlbumsUseCase.swift       # 加载相册用例
+│       ├── ProcessBatchImagesUseCase.swift  # 批量处理用例
 │       ├── ProcessSingleImageUseCase.swift  # 单图处理用例
-│       └── ProcessBatchImagesUseCase.swift  # 批量处理用例
+│       └── SaveImagesToAlbumUseCase.swift  # 保存图片到相册用例
 ├── Features/
 │   ├── Editor/
+│   │   ├── DebugLogView.swift            # 调试日志视图
+│   │   ├── DebugStepOverlay.swift        # 调试步骤覆盖
+│   │   ├── EditorAnimationController.swift  # 编辑器动画控制器
 │   │   ├── EditorView.swift              # 编辑器视图
-│   │   └── EditorViewModel.swift          # 编辑器视图模型
+│   │   ├── EditorViewModel.swift         # 编辑器视图模型
+│   │   └── FrameDetectionOverlay.swift   # 帧检测覆盖
 │   ├── Home/
 │   │   ├── HomeView.swift                # 首页视图
-│   │   └── HomeViewModel.swift            # 首页视图模型
-│   └── Library/
-│       ├── AlbumListView.swift           # 相册列表视图
-│       ├── AlbumSelectionView.swift      # 相册选择视图
-│       └── LibraryViewModel.swift         # 库视图模型
+│   │   └── HomeViewModel.swift           # 首页视图模型
+│   ├── Library/
+│   │   ├── AlbumListView.swift           # 相册列表视图
+│   │   ├── AlbumSelectionView.swift      # 相册选择视图
+│   │   └── LibraryViewModel.swift        # 库视图模型
+│   └── Settings/
+│       ├── SettingsView.swift            # 设置视图
+│       └── SettingsViewModel.swift       # 设置视图模型
 ├── ImageProcessing/
 │   └── NEG/
 │       ├── NEGEngineAdapter.swift        # 引擎适配器
-│       ├── NEGEngine.h                   # 引擎头文件
-│       └── NEGEngine.mm                  # 引擎实现
+│       ├── NEGEngineError.swift          # 引擎错误
+│       ├── NEGFrame.h                    # 帧头文件
+│       └── NEGFrame.mm                   # 帧实现
 ├── UIComponents/
 │   ├── DocumentPicker.swift              # 文档选择器
 │   ├── HapticManager.swift               # 触觉反馈
 │   └── ImagePicker.swift                 # 图片选择器
+├── NEGEngine.h                           # 引擎头文件
+├── NEGEngine.mm                          # 引擎实现
 ├── NegMobile-Bridging-Header.h           # Objective-C 桥接头文件
 └── README.md                             # 项目文档
 ```
@@ -157,7 +181,12 @@ NegMobile/
 | Features/Library/LibraryViewModel.swift | 83 | 库视图模型 |
 | UIComponents/ImagePicker.swift | 78 | 图片选择器 |
 | UIComponents/DocumentPicker.swift | 68 | 文档选择器 |
-| **总计** | **2,560** | **重构后代码** |
+| Core/Settings/AppSettings.swift | 50 | 应用设置 |
+| Features/Settings/SettingsView.swift | 45 | 设置视图 |
+| Features/Settings/SettingsViewModel.swift | 30 | 设置视图模型 |
+| Domain/UseCases/LoadAlbumsUseCase.swift | 25 | 加载相册用例 |
+| Domain/UseCases/SaveImagesToAlbumUseCase.swift | 20 | 保存图片到相册用例 |
+| **总计** | **2,650** | **重构后代码** |
 
 ## 🎨 界面预览
 
@@ -175,6 +204,10 @@ NegMobile/
 - 图集列表（2列网格）
 - 图集详情（3列网格）
 - 长按菜单（导出、删除）
+
+### 设置界面
+- 应用配置选项
+- 用户偏好设置
 
 ## 🔧 配置要求
 
@@ -206,6 +239,7 @@ NegMobile/
 - ✨ 修复相册详情页照片重叠问题
 - ✨ 增强错误处理和边界情况处理
 - ✨ 提升性能和响应速度
+- ✨ 新增设置功能，管理应用配置和用户偏好
 
 #### 技术改进
 - 🔧 引擎适配器模式隔离核心逻辑
@@ -257,6 +291,9 @@ NegMobile/
 - [ ] iCloud 同步
 - [ ] 照片分享功能
 - [ ] EXIF 信息显示
+- [ ] 高级设置选项
+- [ ] 深色模式支持
+- [ ] 自定义处理参数预设
 
 ## 📄 许可证
 
