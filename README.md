@@ -28,26 +28,6 @@
 - ✅ **应用配置**：管理应用级别的设置
 - ✅ **用户偏好**：保存用户的操作偏好
 
-## 🚀 快速开始
-
-### 1. 打开项目
-
-```bash
-# 打开项目
-cd /Users/yichen/Documents/NegMobile
-open NegMobile.xcodeproj
-```
-
-### 2. 构建并运行
-
-```bash
-# 方法 1：在 Xcode 中
-# 按 Cmd + B 构建
-# 按 Cmd + R 运行
-
-# 方法 2：使用命令行
-xcodebuild -project NegMobile.xcodeproj -scheme NegMobile -destination 'platform=iOS Simulator,id=3D86CA03-187D-404A-A902-B10C5032DC65' build
-```
 
 ### 3. 项目状态
 
